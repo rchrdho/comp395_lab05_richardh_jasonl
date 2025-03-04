@@ -11,13 +11,22 @@ namespace WinFormsApp
             InitializeComponent();
         }
 
-        private void ToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void ToolStripMenuNew_Click(object sender, EventArgs e)
         {
-            var child = new Form();
+            using (var dialog = new NewImageDialog())
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    Size chosenSize = dialog.SelectedSize;
 
-            child.MdiParent = this;
 
-            child.Show();
+                    var child = new Form1();
+                    child.MdiParent = this;
+                    child.ClientSize = chosenSize;
+                    child.BackColor = Color.LightBlue;
+                    child.Show();
+                }
+            }
         }
 
         private void openFileToolStripMenuItem_Click(object sender, EventArgs e)
@@ -40,11 +49,6 @@ namespace WinFormsApp
                 child.MdiParent = this;
                 string strURL = dlg.WebImageUrl;
             }
-        }
-
-        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }
