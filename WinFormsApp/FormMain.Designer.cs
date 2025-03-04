@@ -30,7 +30,16 @@
         {
             menuStrip1 = new MenuStrip();
             fileToolStripMenuItem = new ToolStripMenuItem();
+            saveToolStripMenuItem = new ToolStripMenuItem();
+            openToolStripMenuItem = new ToolStripMenuItem();
+            openFromWebToolStripMenuItem = new ToolStripMenuItem();
+            saveToolStripMenuItem1 = new ToolStripMenuItem();
+            saveAsToolStripMenuItem = new ToolStripMenuItem();
+            exitToolStripMenuItem = new ToolStripMenuItem();
             windowsToolStripMenuItem = new ToolStripMenuItem();
+            cascadeToolStripMenuItem = new ToolStripMenuItem();
+            tileHorizontalToolStripMenuItem = new ToolStripMenuItem();
+            tileVerticalToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -39,29 +48,87 @@
             menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, windowsToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(800, 25);
+            menuStrip1.Size = new Size(800, 24);
             menuStrip1.TabIndex = 1;
             menuStrip1.Text = "menuStrip1";
             // 
             // fileToolStripMenuItem
             // 
+            fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { saveToolStripMenuItem, openToolStripMenuItem, openFromWebToolStripMenuItem, saveToolStripMenuItem1, saveAsToolStripMenuItem, exitToolStripMenuItem });
             fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            fileToolStripMenuItem.Size = new Size(39, 21);
+            fileToolStripMenuItem.Size = new Size(37, 20);
             fileToolStripMenuItem.Text = "File";
-            fileToolStripMenuItem.Click += ToolStripMenuItem1_Click;
+            // 
+            // saveToolStripMenuItem
+            // 
+            saveToolStripMenuItem.Name = "saveToolStripMenuItem";
+            saveToolStripMenuItem.Size = new Size(180, 22);
+            saveToolStripMenuItem.Text = "New";
+            saveToolStripMenuItem.Click += saveToolStripMenuItem_Click;
+            // 
+            // openToolStripMenuItem
+            // 
+            openToolStripMenuItem.Name = "openToolStripMenuItem";
+            openToolStripMenuItem.Size = new Size(180, 22);
+            openToolStripMenuItem.Text = "Open from File";
+            openToolStripMenuItem.Click += openFileToolStripMenuItem_Click;
+            // 
+            // openFromWebToolStripMenuItem
+            // 
+            openFromWebToolStripMenuItem.Name = "openFromWebToolStripMenuItem";
+            openFromWebToolStripMenuItem.Size = new Size(180, 22);
+            openFromWebToolStripMenuItem.Text = "Open from Web";
+            openFromWebToolStripMenuItem.Click += openFromWebButton_Click;
+            // 
+            // saveToolStripMenuItem1
+            // 
+            saveToolStripMenuItem1.Name = "saveToolStripMenuItem1";
+            saveToolStripMenuItem1.Size = new Size(180, 22);
+            saveToolStripMenuItem1.Text = "Save";
+            // 
+            // saveAsToolStripMenuItem
+            // 
+            saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
+            saveAsToolStripMenuItem.Size = new Size(180, 22);
+            saveAsToolStripMenuItem.Text = "Save as";
+            // 
+            // exitToolStripMenuItem
+            // 
+            exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            exitToolStripMenuItem.Size = new Size(180, 22);
+            exitToolStripMenuItem.Text = "Exit";
             // 
             // windowsToolStripMenuItem
             // 
+            windowsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { cascadeToolStripMenuItem, tileHorizontalToolStripMenuItem, tileVerticalToolStripMenuItem });
             windowsToolStripMenuItem.Name = "windowsToolStripMenuItem";
-            windowsToolStripMenuItem.Size = new Size(73, 21);
+            windowsToolStripMenuItem.Size = new Size(68, 20);
             windowsToolStripMenuItem.Text = "Windows";
             windowsToolStripMenuItem.Click += ToolStripMenuItem1_Click;
             // 
+            // cascadeToolStripMenuItem
+            // 
+            cascadeToolStripMenuItem.Name = "cascadeToolStripMenuItem";
+            cascadeToolStripMenuItem.Size = new Size(150, 22);
+            cascadeToolStripMenuItem.Text = "Cascade";
+            // 
+            // tileHorizontalToolStripMenuItem
+            // 
+            tileHorizontalToolStripMenuItem.Name = "tileHorizontalToolStripMenuItem";
+            tileHorizontalToolStripMenuItem.Size = new Size(150, 22);
+            tileHorizontalToolStripMenuItem.Text = "Tile Horizontal";
+            // 
+            // tileVerticalToolStripMenuItem
+            // 
+            tileVerticalToolStripMenuItem.Name = "tileVerticalToolStripMenuItem";
+            tileVerticalToolStripMenuItem.Size = new Size(150, 22);
+            tileVerticalToolStripMenuItem.Text = "Tile Vertical";
+            // 
             // FormMain
             // 
-            AutoScaleDimensions = new SizeF(7F, 17F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(800, 397);
             Controls.Add(menuStrip1);
             IsMdiContainer = true;
             Name = "FormMain";
@@ -77,5 +144,14 @@
         private MenuStrip menuStrip1;
         private ToolStripMenuItem fileToolStripMenuItem;
         private ToolStripMenuItem windowsToolStripMenuItem;
+        private ToolStripMenuItem saveToolStripMenuItem;
+        private ToolStripMenuItem openToolStripMenuItem;
+        private ToolStripMenuItem openFromWebToolStripMenuItem;
+        private ToolStripMenuItem saveToolStripMenuItem1;
+        private ToolStripMenuItem saveAsToolStripMenuItem;
+        private ToolStripMenuItem exitToolStripMenuItem;
+        private ToolStripMenuItem cascadeToolStripMenuItem;
+        private ToolStripMenuItem tileHorizontalToolStripMenuItem;
+        private ToolStripMenuItem tileVerticalToolStripMenuItem;
     }
 }
