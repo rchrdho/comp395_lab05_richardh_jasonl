@@ -7,7 +7,7 @@ namespace WinFormsApp
             InitializeComponent();
         }
 
-        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        private void ToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             var child = new Form();
 

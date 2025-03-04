@@ -48,14 +48,14 @@
             fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             fileToolStripMenuItem.Size = new Size(39, 21);
             fileToolStripMenuItem.Text = "File";
-            fileToolStripMenuItem.Click += toolStripMenuItem1_Click;
+            fileToolStripMenuItem.Click += ToolStripMenuItem1_Click;
             // 
             // windowsToolStripMenuItem
             // 
             windowsToolStripMenuItem.Name = "windowsToolStripMenuItem";
             windowsToolStripMenuItem.Size = new Size(73, 21);
             windowsToolStripMenuItem.Text = "Windows";
-            windowsToolStripMenuItem.Click += toolStripMenuItem1_Click;
+            windowsToolStripMenuItem.Click += ToolStripMenuItem1_Click;
             // 
             // FormMain
             // 
