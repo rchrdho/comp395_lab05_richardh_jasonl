@@ -11,6 +11,9 @@ using System.Net;
 
 namespace WinFormsApp
 {
+
+    //TODO: add OnClose type event to remove of the ImageForm child component from the main form, and call Dispose() on it and its Image field
+
     public partial class FormMain : Form
     {
         public FormMain()
@@ -51,11 +54,20 @@ namespace WinFormsApp
 
         private void ToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            var child = new Form();
+            using (var dialog = new NewImageDialog())
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    Size chosenSize = dialog.SelectedSize;
 
-            child.MdiParent = this;
 
-            child.Show();
+                    var child = new ImageForm();
+                    child.MdiParent = this;
+                    child.ClientSize = chosenSize;
+                    child.BackColor = Color.LightBlue;
+                    child.Show();
+                }
+            }
         }
 
         private void openFileToolStripMenuItem_Click(object sender, EventArgs e)
