@@ -71,9 +71,7 @@ namespace WinFormsApp
 
                 // display the new form 
                 newMDIChild.Show();
-
-                //this.isFileLoaded = true;
-                //EnableDisableSaveAndSaveAs(isFileLoaded);
+                
             }
 
         }
