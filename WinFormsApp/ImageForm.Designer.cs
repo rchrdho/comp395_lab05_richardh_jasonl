@@ -37,6 +37,7 @@
             ClientSize = new Size(266, 304);
             Name = "ImageForm";
             Text = "Image Form";
+            Paint += ImageForm_Paint;
             ResumeLayout(false);
         }
 

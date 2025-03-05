@@ -11,11 +11,15 @@ using System.Net;
 
 namespace WinFormsApp
 {
-
     //TODO: add OnClose type event to remove of the ImageForm child component from the main form, and call Dispose() on it and its Image field
-
     public partial class FormMain : Form
     {
+        /// <summary>
+        /// HttpClient private instance variable, used to make http requests. 
+        /// Intended to be instantiated once per application, rather than per-use.
+        /// </summary>
+        private static readonly HttpClient httpClient = new HttpClient();
+
         public FormMain()
         {
             InitializeComponent();
@@ -27,29 +31,102 @@ namespace WinFormsApp
             WEB = 1
         }
 
-        public void AddNewImageChildForm(string imageFilePath, FileSourceLocation fileSourceLocation)
+        /// <summary>
+        /// Creates an Image subclass instance from a byte array representation of an image.
+        /// </summary>
+        /// <param name="bytesArrOfImg"></param>
+        /// <returns></returns>
+        private static Image CreateImageFromByteArray(byte[] bytesArrOfImg)
+        {
+            // Write the image data (in form of bytes array) to a memory stream
+            MemoryStream mStream = new MemoryStream();
+            mStream.Write(bytesArrOfImg, 0, bytesArrOfImg.Length);
+
+            // Create the image using the created memory stream
+            Image image = Image.FromStream(mStream);
+
+            return image;
+        }
+
+        //TODO: add try and exception handling for both image loading methods
+
+        /// <summary>
+        /// Loads and returns an image from the user's file system.
+        /// </summary>
+        /// <param name="imageFSSourcePath"></param>
+        /// <returns></returns>
+        private static async Task<Image> GetFileSystemImage(string imageFSSourcePath)
+        {
+            Image image;
+            byte[] bytesArrOfImg;
+
+            using (FileStream sourceStream = File.Open(imageFSSourcePath, FileMode.Open))
+            {
+                bytesArrOfImg = new byte[sourceStream.Length];
+                await sourceStream.ReadAsync(bytesArrOfImg, 0, (int)sourceStream.Length);
+            }
+
+            image = CreateImageFromByteArray(bytesArrOfImg);
+            return image;
+        }
+
+        /// <summary>
+        /// Loads and returns an image from the web using HttpClient, passing in the uri of the source location.
+        /// HttpClient does not need to be disposed after every request, it should exist during the entire application runtime.
+        /// </summary>
+        /// <param name="httpClient"></param>
+        /// <param name="reqURI"></param>
+        /// <returns></returns>
+        private static async Task<Image> GetWebImage(HttpClient httpClient, string imageSrcURI)
+        {
+            Image image;
+            byte[] bytesArrOfImg;
+
+            // Make request and get response (the image) in bytes
+            bytesArrOfImg = await httpClient.GetByteArrayAsync(imageSrcURI);
+
+            image = CreateImageFromByteArray(bytesArrOfImg);
+            return image;
+        }
+
+        /// <summary>
+        /// Adds a new image (child form) to the main form "canvas" after retrieving it using the image file path / url.
+        /// </summary>
+        /// <param name="imageFilePath"></param>
+        /// <param name="fileSourceLocation"></param>
+        /// <exception cref="ArgumentNullException"></exception>
+        public async void AddNewImageChildForm(string imageFilePath, FileSourceLocation fileSourceLocation)
         {
             ImageForm imageChildForm = new ImageForm();
+            Image image;
             imageChildForm.MdiParent = this;
 
-            // Logic for loading the image
+            if (imageFilePath == null || String.IsNullOrWhiteSpace(imageFilePath))
+            {
+                throw new ArgumentNullException($"File path or web url path cannot be null, empty, or only contain whitespace.");
+            }
+
+            // Load the image from the user's file system or from the web
 
             // ***Not good OOP practice (should instead use open/closed principle and abstract base class) but we won't be adding any more file source locations anyway
             if (fileSourceLocation == FileSourceLocation.FILE_SYSTEM)
             {
-                //TODO - use files / streams to get the image from user's file system
+                image = await GetFileSystemImage(imageFilePath);
+                imageChildForm.Image = image;
             }
             else if (fileSourceLocation == FileSourceLocation.WEB)
             {
-                //TODO - use WebRequest and WebResponse for loading from the Web
+                image = await GetWebImage(httpClient, imageFilePath);
+                imageChildForm.Image = image;
             }
 
-            //TODO - set the Image field in the image child form
-            //imageChildForm.Image = 
-
-            imageChildForm.Show(); //TODO - remove this, and instead trigger the ImageForm FormChild_Paint event handler (idk how to do this yet)
+            // reload all events in the ImageForm child component
+            // (will trigger the Paint event handler that draws the image to the child form)
+            imageChildForm.Invalidate();
+            
+            imageChildForm.Show();
         }
-
+        
         // Event handlers ===
 
         private void NewMenuItem_Clicked(object sender, EventArgs e)
@@ -73,9 +150,7 @@ namespace WinFormsApp
                 newMDIChild.Show();
                 
             }
-
         }
-
 
         private void OpenFileToolStripMenuItem_Click(object sender, EventArgs e)
         {

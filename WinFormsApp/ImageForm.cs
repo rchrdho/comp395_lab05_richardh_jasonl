@@ -38,7 +38,7 @@ namespace WinFormsApp
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void FormChild_Paint(object sender, PaintEventArgs e)
+        private void ImageForm_Paint(object sender, PaintEventArgs e)
         {
             e.Graphics.DrawImage(myImage, this.AutoScrollPosition.X,
                 this.AutoScrollPosition.Y, myImage.Width, myImage.Height);
