@@ -94,58 +94,6 @@ namespace WinFormsApp
             }
         }
 
-        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ////save the file
-            //FormChild child = (FormChild)this.ActiveMdiChild;
-            //this.saveFileDialog1.FileName = child.Text;
-            //this.saveFileDialog1.Filter = "jpg|*.jpg|jpeg|*.jpeg|bmp|*.bmp|gif|*.gif";
-            //this.saveFileDialog1.Title = "Save Image As";
-            //ImageFormat format = ImageFormat.Jpeg;
-            //if (child.Text == "New Image")
-            //{
-            //    //save the file dilaog - new child
-            //    if (this.saveFileDialog1.ShowDialog() == DialogResult.OK)
-            //    {
-            //        try
-            //        {
-            //            child.Image.Save(this.saveFileDialog1.FileName);
-            //            child.Text = this.saveFileDialog1.FileName;
-            //        }
-            //        catch (Exception exc)
-            //        {
-            //            MessageBox.Show(exc.Message, Text);
-            //            return;
-            //        }
-            //    }
-            //}
-            //else
-            //{
-            //    try
-            //    {
-            //        // get the extension of the file
-            //        string extension = Path.GetExtension(saveFileDialog1.FileName);
-            //        format = GetFormat(extension);
-            //        //copy original
-            //        Image copyImage = new
-            //        Bitmap(child.Image.Width, child.Image.Height);
-            //        //get graphics
-            //        Graphics g = Graphics.FromImage(copyImage);
-            //        //draw the image
-            //        g.DrawImage(child.Image, 0, 0);
-            //        //close original
-            //        child.Image.Dispose();
-            //        child.Image = copyImage;
-            //        child.Image.Save(this.saveFileDialog1.FileName, format);
-            //    }
-            //    catch (Exception exc)
-            //    {
-            //        MessageBox.Show(exc.Message, "My Error");
-            //        return;
-            //    }
-            //}
-        }
-
         private void fileToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
         {
             if (this.HasChildren)
@@ -158,6 +106,21 @@ namespace WinFormsApp
                 saveToolStripMenuItem1.Enabled  = false;
                 saveAsToolStripMenuItem.Enabled = false;
             }
+        }
+
+        private void cascadeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.LayoutMdi(MdiLayout.Cascade);
+        }
+
+        private void tileHorizontalToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.LayoutMdi(MdiLayout.TileHorizontal);
+        }
+
+        private void tileVerticalToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.LayoutMdi(MdiLayout.TileVertical);
         }
     }
 }
