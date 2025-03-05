@@ -25,7 +25,7 @@ namespace WinFormsApp
             InitializeComponent();
         }
 
-        public enum FileSourceLocation
+        private enum FileSourceLocation
         {
             FILE_SYSTEM = 0,
             WEB = 1
@@ -95,7 +95,7 @@ namespace WinFormsApp
         /// <param name="imageFilePath"></param>
         /// <param name="fileSourceLocation"></param>
         /// <exception cref="ArgumentNullException"></exception>
-        public async void AddNewImageChildForm(string imageFilePath, FileSourceLocation fileSourceLocation)
+        private async void AddNewImageChildForm(string imageFilePath, FileSourceLocation fileSourceLocation)
         {
             ImageForm imageChildForm = new ImageForm();
             Image image;
