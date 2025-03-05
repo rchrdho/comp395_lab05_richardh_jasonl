@@ -18,41 +18,55 @@ namespace WinFormsApp
         {
             InitializeComponent();
         }
-        
-        private void NewImageDialog_Load(object sender, EventArgs e)
-        {
-            radioButton1.Checked = true;
-        }
 
-        private void BtnOK_Click(object sender, EventArgs e)
+        // <summary>
+        /// Returns the image height corresponding with the radio button selected.
+        /// </summary>
+        /// <returns>the image height selected, an int</returns>
+        public int GetHeight()
         {
             if (radioButton1.Checked)
             {
-                SelectedSize = new Size(640, 480);
-
+                return 640;
             }
             else if (radioButton2.Checked)
             {
-                SelectedSize = new Size(800, 600);
-
+                return 800;
             }
             else if (radioButton3.Checked)
             {
-                SelectedSize = new Size(1024, 768);
+                return 1024;
             }
             else
             {
-                SelectedSize = new Size(640, 480);
+                return 0;
             }
-            this.DialogResult = DialogResult.OK;
-            this.Close();
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Returns the image width corresponding with the radio button selected.
+        /// </summary>
+        /// <returns>the image width selected, an int</returns>
+        public int GetWidth()
         {
-            this.DialogResult = DialogResult.Cancel;
-            this.Close();
+            if (radioButton1.Checked)
+            {
+                return 480;
+            }
+            else if (radioButton2.Checked)
+            {
+                return 600;
+            }
+            else if (radioButton3.Checked)
+            {
+                return 768;
+            }
+            else
+            {
+                return 0;
+            }
         }
+
 
     }
 }

@@ -70,23 +70,23 @@
             // 
             // button1
             // 
+            button1.DialogResult = DialogResult.OK;
             button1.Location = new Point(185, 107);
             button1.Name = "button1";
             button1.Size = new Size(75, 23);
             button1.TabIndex = 3;
             button1.Text = "OK";
             button1.UseVisualStyleBackColor = true;
-            button1.Click += BtnOK_Click;
             // 
             // button2
             // 
+            button2.DialogResult = DialogResult.Cancel;
             button2.Location = new Point(185, 164);
             button2.Name = "button2";
             button2.Size = new Size(75, 23);
             button2.TabIndex = 4;
             button2.Text = "Cancel";
             button2.UseVisualStyleBackColor = true;
-            button2.Click += btnCancel_Click;
             // 
             // NewImageDialog
             // 
@@ -100,7 +100,6 @@
             Controls.Add(radioButton1);
             Name = "NewImageDialog";
             Text = "Dialog Image";
-            Load += NewImageDialog_Load;
             ResumeLayout(false);
             PerformLayout();
         }

@@ -30,10 +30,10 @@
         {
             menuStrip1 = new MenuStrip();
             fileToolStripMenuItem = new ToolStripMenuItem();
-            saveToolStripMenuItem = new ToolStripMenuItem();
+            NewMenuItem = new ToolStripMenuItem();
             openToolStripMenuItem = new ToolStripMenuItem();
             openFromWebToolStripMenuItem = new ToolStripMenuItem();
-            saveToolStripMenuItem1 = new ToolStripMenuItem();
+            saveToolStripMenuItem = new ToolStripMenuItem();
             saveAsToolStripMenuItem = new ToolStripMenuItem();
             exitToolStripMenuItem = new ToolStripMenuItem();
             windowsToolStripMenuItem = new ToolStripMenuItem();
@@ -54,51 +54,54 @@
             // 
             // fileToolStripMenuItem
             // 
-            fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { saveToolStripMenuItem, openToolStripMenuItem, openFromWebToolStripMenuItem, saveToolStripMenuItem1, saveAsToolStripMenuItem, exitToolStripMenuItem });
+            fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { NewMenuItem, openToolStripMenuItem, openFromWebToolStripMenuItem, saveToolStripMenuItem, saveAsToolStripMenuItem, exitToolStripMenuItem });
             fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             fileToolStripMenuItem.Size = new Size(39, 21);
             fileToolStripMenuItem.Text = "File";
-            fileToolStripMenuItem.DropDownOpening += fileToolStripMenuItem_DropDownOpening;
+            fileToolStripMenuItem.DropDownOpening += FileToolStripMenuItem_DropDownOpening;
             // 
-            // saveToolStripMenuItem
+            // NewMenuItem
             // 
-            saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            saveToolStripMenuItem.Size = new Size(170, 22);
-            saveToolStripMenuItem.Text = "New";
-            saveToolStripMenuItem.Click += ToolStripMenuItem1_Click;
+            NewMenuItem.Name = "NewMenuItem";
+            NewMenuItem.Size = new Size(180, 22);
+            NewMenuItem.Text = "New";
+            NewMenuItem.Click += NewMenuItem_Clicked;
             // 
             // openToolStripMenuItem
             // 
             openToolStripMenuItem.Name = "openToolStripMenuItem";
-            openToolStripMenuItem.Size = new Size(170, 22);
+            openToolStripMenuItem.Size = new Size(180, 22);
             openToolStripMenuItem.Text = "Open from File";
-            openToolStripMenuItem.Click += openFileToolStripMenuItem_Click;
+            openToolStripMenuItem.Click += OpenFileToolStripMenuItem_Click;
             // 
             // openFromWebToolStripMenuItem
             // 
             openFromWebToolStripMenuItem.Name = "openFromWebToolStripMenuItem";
-            openFromWebToolStripMenuItem.Size = new Size(170, 22);
+            openFromWebToolStripMenuItem.Size = new Size(180, 22);
             openFromWebToolStripMenuItem.Text = "Open from Web";
-            openFromWebToolStripMenuItem.Click += openFromWebButton_Click;
+            openFromWebToolStripMenuItem.Click += OpenFromWebButton_Click;
             // 
-            // saveToolStripMenuItem1
+            // saveToolStripMenuItem
             // 
-            saveToolStripMenuItem1.Enabled = false;
-            saveToolStripMenuItem1.Name = "saveToolStripMenuItem1";
-            saveToolStripMenuItem1.Size = new Size(170, 22);
-            saveToolStripMenuItem1.Text = "Save";
+            saveToolStripMenuItem.AutoSize = false;
+            saveToolStripMenuItem.Enabled = false;
+            saveToolStripMenuItem.Name = "saveToolStripMenuItem";
+            saveToolStripMenuItem.Size = new Size(180, 22);
+            saveToolStripMenuItem.Text = "Save";
+            saveToolStripMenuItem.Click += SaveToolStripMenuItem_Click;
             // 
             // saveAsToolStripMenuItem
             // 
             saveAsToolStripMenuItem.Enabled = false;
             saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            saveAsToolStripMenuItem.Size = new Size(170, 22);
+            saveAsToolStripMenuItem.Size = new Size(180, 22);
             saveAsToolStripMenuItem.Text = "Save as";
+            saveAsToolStripMenuItem.Click += SaveAsMenuItem_Click;
             // 
             // exitToolStripMenuItem
             // 
             exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            exitToolStripMenuItem.Size = new Size(170, 22);
+            exitToolStripMenuItem.Size = new Size(180, 22);
             exitToolStripMenuItem.Text = "Exit";
             // 
             // windowsToolStripMenuItem
@@ -111,23 +114,23 @@
             // cascadeToolStripMenuItem
             // 
             cascadeToolStripMenuItem.Name = "cascadeToolStripMenuItem";
-            cascadeToolStripMenuItem.Size = new Size(180, 22);
+            cascadeToolStripMenuItem.Size = new Size(160, 22);
             cascadeToolStripMenuItem.Text = "Cascade";
-            cascadeToolStripMenuItem.Click += cascadeToolStripMenuItem_Click;
+            cascadeToolStripMenuItem.Click += CascadeToolStripMenuItem_Click;
             // 
             // tileHorizontalToolStripMenuItem
             // 
             tileHorizontalToolStripMenuItem.Name = "tileHorizontalToolStripMenuItem";
-            tileHorizontalToolStripMenuItem.Size = new Size(180, 22);
+            tileHorizontalToolStripMenuItem.Size = new Size(160, 22);
             tileHorizontalToolStripMenuItem.Text = "Tile Horizontal";
-            tileHorizontalToolStripMenuItem.Click += tileHorizontalToolStripMenuItem_Click;
+            tileHorizontalToolStripMenuItem.Click += TileHorizontalToolStripMenuItem_Click;
             // 
             // tileVerticalToolStripMenuItem
             // 
             tileVerticalToolStripMenuItem.Name = "tileVerticalToolStripMenuItem";
-            tileVerticalToolStripMenuItem.Size = new Size(180, 22);
+            tileVerticalToolStripMenuItem.Size = new Size(160, 22);
             tileVerticalToolStripMenuItem.Text = "Tile Vertical";
-            tileVerticalToolStripMenuItem.Click += tileVerticalToolStripMenuItem_Click;
+            tileVerticalToolStripMenuItem.Click += TileVerticalToolStripMenuItem_Click;
             // 
             // FormMain
             // 
@@ -149,14 +152,14 @@
         private MenuStrip menuStrip1;
         private ToolStripMenuItem fileToolStripMenuItem;
         private ToolStripMenuItem windowsToolStripMenuItem;
-        private ToolStripMenuItem saveToolStripMenuItem;
-        private ToolStripMenuItem openToolStripMenuItem;
-        private ToolStripMenuItem openFromWebToolStripMenuItem;
-        private ToolStripMenuItem saveToolStripMenuItem1;
-        private ToolStripMenuItem saveAsToolStripMenuItem;
-        private ToolStripMenuItem exitToolStripMenuItem;
         private ToolStripMenuItem cascadeToolStripMenuItem;
         private ToolStripMenuItem tileHorizontalToolStripMenuItem;
         private ToolStripMenuItem tileVerticalToolStripMenuItem;
+        private ToolStripMenuItem NewMenuItem;
+        private ToolStripMenuItem openToolStripMenuItem;
+        private ToolStripMenuItem openFromWebToolStripMenuItem;
+        private ToolStripMenuItem saveToolStripMenuItem;
+        private ToolStripMenuItem saveAsToolStripMenuItem;
+        private ToolStripMenuItem exitToolStripMenuItem;
     }
 }
