@@ -301,7 +301,7 @@ namespace WinFormsApp
             }
         }
 
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (this.MdiChildren.Length > 0) {
                 // create a new child form - FormMainCloseDialog
