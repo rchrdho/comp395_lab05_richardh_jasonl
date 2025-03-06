@@ -67,19 +67,40 @@ namespace WinFormsApp
         /// </summary>
         /// <param name="imageFSSourcePath"></param>
         /// <returns></returns>
-        private static async Task<Image> GetFileSystemImage(string imageFSSourcePath)
+        private static async Task<Image?> GetFileSystemImage(string imageFSSourcePath)
         {
             Image image;
             byte[] bytesArrOfImg;
 
-            using (FileStream sourceStream = File.Open(imageFSSourcePath, FileMode.Open))
+            try
             {
-                bytesArrOfImg = new byte[sourceStream.Length];
-                await sourceStream.ReadAsync(bytesArrOfImg, 0, (int)sourceStream.Length);
-            }
+                using (FileStream sourceStream = File.Open(imageFSSourcePath, FileMode.Open))
+                {
+                    bytesArrOfImg = new byte[sourceStream.Length];
+                    await sourceStream.ReadAsync(bytesArrOfImg, 0, (int)sourceStream.Length);
+                }
 
-            image = CreateImageFromByteArray(bytesArrOfImg);
-            return image;
+                image = CreateImageFromByteArray(bytesArrOfImg);
+                return image;
+            }
+            catch(FileNotFoundException ex)
+            {
+                // Handle file not found exception
+                MessageBox.Show($"File not found: {ex.Message}");
+                return null;
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                // Handle access permissions issues
+                MessageBox.Show($"Access denied: {ex.Message}");
+                return null;
+            }
+            catch (Exception ex)
+            {
+                // Handle any other general exceptions
+                MessageBox.Show($"An unknown error occurred: {ex.Message}");
+                return null;
+            }
         }
 
         /// <summary>
@@ -89,16 +110,33 @@ namespace WinFormsApp
         /// <param name="httpClient"></param>
         /// <param name="reqURI"></param>
         /// <returns></returns>
-        private static async Task<Image> GetWebImage(HttpClient httpClient, string imageSrcURI)
+        private static async Task<Image?> GetWebImage(HttpClient httpClient, string imageSrcURI)
         {
             Image image;
             byte[] bytesArrOfImg;
 
-            // Make GET request and receive response (the image in bytes)
-            bytesArrOfImg = await httpClient.GetByteArrayAsync(imageSrcURI);
-
-            image = CreateImageFromByteArray(bytesArrOfImg);
-            return image;
+            try
+            {
+                // Make GET request and receive response (the image in bytes)
+                bytesArrOfImg = await httpClient.GetByteArrayAsync(imageSrcURI);
+                image = CreateImageFromByteArray(bytesArrOfImg);
+                return image;
+            }
+            catch(UriFormatException)
+            {
+                MessageBox.Show("Invalid uri. The format of the uri could not be determined.");
+                return null;
+            }
+            catch(HttpRequestException ex)
+            {
+                MessageBox.Show($"Unable to load image. An HTTP request error occured. Error msg: {ex.Message}");
+                return null;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Unknown Exception occured. Exception msg: {ex.Message}");
+                return null;
+            }            
         }
 
         /// <summary>
@@ -110,7 +148,7 @@ namespace WinFormsApp
         private async void AddNewImageChildForm(string imageFilePath, FileSourceLocation fileSourceLocation)
         {
             ImageFormChild imageChildForm = new ImageFormChild();
-            Image image;
+            Image? image;
             imageChildForm.MdiParent = this;
 
             if (imageFilePath == null || String.IsNullOrWhiteSpace(imageFilePath))
@@ -124,12 +162,12 @@ namespace WinFormsApp
             if (fileSourceLocation == FileSourceLocation.FILE_SYSTEM)
             {
                 image = await GetFileSystemImage(imageFilePath);
-                imageChildForm.Image = image;
+                if (image != null) imageChildForm.Image = image;
             }
             else if (fileSourceLocation == FileSourceLocation.WEB)
             {
                 image = await GetWebImage(httpClient, imageFilePath);
-                imageChildForm.Image = image;
+                if (image != null) imageChildForm.Image = image;
             }
 
             // reload all events in the ImageForm child component
