@@ -149,16 +149,16 @@ namespace WinFormsApp
         {
 
             NewImageDialog dialog = new NewImageDialog();
-            dialog.Owner = this;
+            dialog.Owner          = this;
 
             if (dialog.ShowDialog() == DialogResult.OK)
             {
                 int height = dialog.GetHeight();
-                int width = dialog.GetWidth();
+                int width  = dialog.GetWidth();
 
                 ImageFormChild newMDIChild = new ImageFormChild();
                 // set the parent form of the child window
-                newMDIChild.MdiParent = this;
+                newMDIChild.MdiParent      = this;
 
                 newMDIChild.SetDefaultImage(height, width);
 
@@ -207,12 +207,12 @@ namespace WinFormsApp
         {
             if (this.MdiChildren.Length > 0)
             {
-                saveToolStripMenuItem.Enabled = true;
+                saveToolStripMenuItem.Enabled   = true;
                 saveAsToolStripMenuItem.Enabled = true;
             }
             else
             {
-                saveToolStripMenuItem.Enabled = false;
+                saveToolStripMenuItem.Enabled   = false;
                 saveAsToolStripMenuItem.Enabled = false;
             }
 
@@ -276,7 +276,7 @@ namespace WinFormsApp
 
             saveFileDialog1.FileName       = child.Text;
             saveFileDialog1.Filter         = "jpg|*.jpg|jpeg|*.jpeg|bmp|*.bmp|gif|*.gif";
-            saveFileDialog1.Title          = "Save Image As";
+            saveFileDialog1.Title          = "Save Image";
             ImageFormat format             = ImageFormat.Jpeg;
 
             // Check if current form is "new image"
@@ -329,12 +329,12 @@ namespace WinFormsApp
         /// </summary>
         private void SaveAsMenuItem_Click(object sender, EventArgs e)
         {
-            ImageFormChild child = (ImageFormChild)this.ActiveMdiChild;
+            ImageFormChild child     = (ImageFormChild)this.ActiveMdiChild;
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
             saveFileDialog1.FileName = "";
-            saveFileDialog1.Filter = "jpg|.jpg|jpeg|.jpeg|bmp|.bmp|gif|.gif";
-            saveFileDialog1.Title = "Save Image As";
-            ImageFormat format = ImageFormat.Jpeg;
+            saveFileDialog1.Filter   = "jpg|.jpg|jpeg|.jpeg|bmp|.bmp|gif|.gif";
+            saveFileDialog1.Title    = "Save Image As";
+            ImageFormat format       = ImageFormat.Jpeg;
 
             // The same as Save image menu but does not check for a default name. Must input name.
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)

@@ -6,13 +6,19 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+
 namespace WinFormsApp
 {
     /// <summary>
-    /// Child form
+    /// Represents a child form in the MDI application,
+    /// containing and displaying an image.
     /// </summary>
     public partial class ImageFormChild : Form
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ImageFormChild"/> class
+        /// and sets a default image of 300x300 filled with a light blue color.
+        /// </summary>
         public ImageFormChild()
         {
             InitializeComponent();
@@ -23,7 +29,9 @@ namespace WinFormsApp
         private Image myImage;
 
         /// <summary>
-        /// property Image
+        /// Gets or sets the <see cref="Image"/> displayed in this child form.
+        /// When set, the <see cref="AutoScrollMinSize"/> property is adjusted
+        /// to match the size of the provided image.
         /// </summary>
         public Image Image
         {
@@ -38,6 +46,12 @@ namespace WinFormsApp
             }
         }
 
+        /// <summary>
+        /// Sets the default image with specified <paramref name="height"/> and <paramref name="width"/>,
+        /// then fills it with a light blue color.
+        /// </summary>
+        /// <param name="height">The height of the default image.</param>
+        /// <param name="width">The width of the default image.</param>
         public void SetDefaultImage(int height, int width)
         {
             Image = new Bitmap(height, width);
@@ -49,12 +63,12 @@ namespace WinFormsApp
             }
         }
 
-
         /// <summary>
-        /// Paint event handler for child window
+        /// Handles the Paint event of the form. Draws the current <see cref="myImage"/>
+        /// onto the form, taking the auto-scroll position into account.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The source of the event (not used).</param>
+        /// <param name="e">Provides data for the Paint event.</param>
         private void FormChild_Paint(object sender, PaintEventArgs e)
         {
             e.Graphics.DrawImage(myImage, this.AutoScrollPosition.X,
@@ -62,6 +76,12 @@ namespace WinFormsApp
             myImage.Height);
         }
 
+        /// <summary>
+        /// Handles the FormClosed event of the child form. Disposes of the
+        /// underlying image and the form resources when the form is closed.
+        /// </summary>
+        /// <param name="sender">The source of the event (not used).</param>
+        /// <param name="e">Provides data for the FormClosed event.</param>
         private void ImageForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             myImage.Dispose();
