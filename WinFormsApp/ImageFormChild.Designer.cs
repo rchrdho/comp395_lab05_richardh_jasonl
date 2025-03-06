@@ -1,6 +1,6 @@
 ﻿namespace WinFormsApp
 {
-    partial class ImageForm
+    partial class ImageFormChild
     {
         /// <summary>
         /// Required designer variable.
@@ -28,18 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            SuspendLayout();
-            // 
-            // ImageForm
-            // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(266, 265);
-            Name = "ImageForm";
-            Text = "Image Form";
-            FormClosed += ImageForm_FormClosed;
-            Paint += ImageForm_Paint;
-            ResumeLayout(false);
+            this.components = new System.ComponentModel.Container();
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(400, 400);
+            this.Text = "New Image";
+            this.Name = "FormChild";
+            Paint += FormChild_Paint;
         }
 
         #endregion
