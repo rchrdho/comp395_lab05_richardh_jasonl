@@ -11,9 +11,9 @@ namespace WinFormsApp
     /// <summary>
     /// Child form
     /// </summary>
-    public partial class FormChild : Form
+    public partial class ImageFormChild : Form
     {
-        public FormChild()
+        public ImageFormChild()
         {
             InitializeComponent();
             SetDefaultImage(300, 300);

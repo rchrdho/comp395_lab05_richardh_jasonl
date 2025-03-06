@@ -97,7 +97,7 @@ namespace WinFormsApp
         /// <exception cref="ArgumentNullException"></exception>
         public async void AddNewImageChildForm(string imageFilePath, FileSourceLocation fileSourceLocation)
         {
-            ImageForm imageChildForm = new ImageForm();
+            ImageFormChild imageChildForm = new ImageFormChild();
             Image image;
             imageChildForm.MdiParent = this;
 
@@ -140,7 +140,7 @@ namespace WinFormsApp
                 int height = dialog.GetHeight();
                 int width = dialog.GetWidth();
 
-                FormChild newMDIChild = new FormChild();
+                ImageFormChild newMDIChild = new ImageFormChild();
                 // set the parent form of the child window
                 newMDIChild.MdiParent = this;
 
@@ -178,7 +178,7 @@ namespace WinFormsApp
 
         private void FileToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
         {
-            if (this.HasChildren)
+            if (this.MdiChildren.Length > 0)
             {
                 saveToolStripMenuItem.Enabled = true;
                 saveAsToolStripMenuItem.Enabled = true;
@@ -188,6 +188,7 @@ namespace WinFormsApp
                 saveToolStripMenuItem.Enabled = false;
                 saveAsToolStripMenuItem.Enabled = false;
             }
+
         }
 
         private void CascadeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -229,7 +230,7 @@ namespace WinFormsApp
 
         private void SaveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FormChild child = (FormChild)this.ActiveMdiChild;
+            ImageFormChild child = (ImageFormChild)this.ActiveMdiChild;
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
 
             saveFileDialog1.FileName = child.Text;
@@ -237,8 +238,10 @@ namespace WinFormsApp
             saveFileDialog1.Title = "Save Image As";
             ImageFormat format = ImageFormat.Jpeg;
 
+            // Check if current form is "new image"
             if (child.Text == "New Image")
             {
+                // if Dialog box button Ok is clicked
                 if (saveFileDialog1.ShowDialog() == DialogResult.OK)
                 {
                     try
@@ -257,6 +260,7 @@ namespace WinFormsApp
             else {
                 try
                 {
+                    // if file is named smt else or just not new image copy image to bitmap and use graphics to draw in
                     string extension = Path.GetExtension(saveFileDialog1.FileName);
                     format = GetFormat(extension);
 
@@ -266,6 +270,7 @@ namespace WinFormsApp
 
                     child.Image.Dispose();
                     child.Image = copiedImage;
+                    // save to properly formatted image (as long as getformat accepts that type)
                     child.Image.Save(saveFileDialog1.FileName, format);
                 }
                 catch (Exception exc)
@@ -278,14 +283,14 @@ namespace WinFormsApp
 
         private void SaveAsMenuItem_Click(object sender, EventArgs e)
         {
-            FormChild child = (FormChild)this.ActiveMdiChild;
+            ImageFormChild child = (ImageFormChild)this.ActiveMdiChild;
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-            saveFileDialog1.FileName = child.Text;
+            saveFileDialog1.FileName = "";
             saveFileDialog1.Filter = "jpg|.jpg|jpeg|.jpeg|bmp|.bmp|gif|.gif";
             saveFileDialog1.Title = "Save Image As";
             ImageFormat format = ImageFormat.Jpeg;
 
-
+            // The same as Save image menu but does not check for a default name. Must input name.
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 try

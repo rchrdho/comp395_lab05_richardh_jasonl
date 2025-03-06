@@ -40,6 +40,7 @@
             cascadeToolStripMenuItem = new ToolStripMenuItem();
             tileHorizontalToolStripMenuItem = new ToolStripMenuItem();
             tileVerticalToolStripMenuItem = new ToolStripMenuItem();
+            saveFileDialog1 = new SaveFileDialog();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -161,5 +162,6 @@
         private ToolStripMenuItem saveToolStripMenuItem;
         private ToolStripMenuItem saveAsToolStripMenuItem;
         private ToolStripMenuItem exitToolStripMenuItem;
+        private SaveFileDialog saveFileDialog1;
     }
 }

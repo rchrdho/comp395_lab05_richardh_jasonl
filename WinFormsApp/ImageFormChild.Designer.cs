@@ -1,6 +1,6 @@
 ﻿namespace WinFormsApp
 {
-    partial class OpenDialogForm
+    partial class ImageFormChild
     {
         /// <summary>
         /// Required designer variable.
@@ -30,8 +30,10 @@
         {
             this.components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "OpenDialogForm";
+            this.ClientSize = new System.Drawing.Size(400, 400);
+            this.Text = "New Image";
+            this.Name = "FormChild";
+            Paint += FormChild_Paint;
         }
 
         #endregion
