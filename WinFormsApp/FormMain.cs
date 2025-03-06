@@ -12,6 +12,12 @@ using System.Net;
 namespace WinFormsApp
 {
     //TODO: add OnClose type event to remove of the ImageForm child component from the main form, and call Dispose() on it and its Image field
+    
+    /// <summary>
+    /// Represents the main MDI (Multiple Document Interface) form of the application.
+    /// It hosts and manages multiple image child forms and provides functionality
+    /// for opening, saving, tiling, and cascading these image forms.
+    /// </summary>
     public partial class FormMain : Form
     {
         /// <summary>
@@ -19,12 +25,18 @@ namespace WinFormsApp
         /// Intended to be instantiated once per application, rather than per-use.
         /// </summary>
         private static readonly HttpClient httpClient = new HttpClient();
-
+       
+        /// <summary>
+        /// Default constructor for the FormMain class. Initializes the main form's components.
+        /// </summary>
         public FormMain()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Specifies the file source location types: either from the user's file system or from the web.
+        /// </summary>
         private enum FileSourceLocation
         {
             FILE_SYSTEM = 0,
@@ -129,6 +141,10 @@ namespace WinFormsApp
 
         // Event handlers ===
 
+        /// <summary>
+        /// Event handler for the "New" menu item click event. Displays a dialog for creating a new image
+        /// with specified dimensions, creates the image, and shows it in a new child form.
+        /// </summary>
         private void NewMenuItem_Clicked(object sender, EventArgs e)
         {
 
@@ -151,6 +167,9 @@ namespace WinFormsApp
             }
         }
 
+        /// <summary>
+        /// Event handler for opening an image from the user's file system via the OpenFileDialog.
+        /// </summary>
         private void OpenFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
@@ -164,6 +183,10 @@ namespace WinFormsApp
             }
         }
 
+        /// <summary>
+        /// Event handler for loading an image from the web, prompting the user for a URL,
+        /// and creating a new child form to display the downloaded image.
+        /// </summary>
         private void OpenFromWebButton_Click(object sender, EventArgs e)
         {
             FormDialogWeb dlg = new FormDialogWeb();
@@ -176,6 +199,10 @@ namespace WinFormsApp
             dlg.Dispose();
         }
 
+        /// <summary>
+        /// Event handler for the File menu's DropDownOpening event. Enables or disables
+        /// the Save and Save As menu items depending on whether any MDI children exist.
+        /// </summary>
         private void FileToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
         {
             if (this.MdiChildren.Length > 0)
@@ -191,21 +218,30 @@ namespace WinFormsApp
 
         }
 
+
+        /// <summary>
+        /// Event handler for cascading all open MDI child windows.
+        /// </summary>
         private void CascadeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.LayoutMdi(MdiLayout.Cascade);
         }
 
+        /// <summary>
+        /// Event handler for arranging all open MDI child windows horizontally.
+        /// </summary>
         private void TileHorizontalToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.LayoutMdi(MdiLayout.TileHorizontal);
         }
 
+        /// <summary>
+        /// Event handler for arranging all open MDI child windows vertically.
+        /// </summary>
         private void TileVerticalToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.LayoutMdi(MdiLayout.TileVertical);
         }
-
 
         /// <summary>
         /// Helper method to get the image format based on the file extension.
@@ -228,15 +264,20 @@ namespace WinFormsApp
             }
         }
 
+        /// <summary>
+        /// Event handler for saving the active MDI child image.
+        /// Displays a SaveFileDialog if the image is new, or attempts to save it directly
+        /// if it has an existing file name. Allows for format conversion based on extension.
+        /// </summary>
         private void SaveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ImageFormChild child = (ImageFormChild)this.ActiveMdiChild;
+            ImageFormChild child           = (ImageFormChild)this.ActiveMdiChild;
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
 
-            saveFileDialog1.FileName = child.Text;
-            saveFileDialog1.Filter = "jpg|*.jpg|jpeg|*.jpeg|bmp|*.bmp|gif|*.gif";
-            saveFileDialog1.Title = "Save Image As";
-            ImageFormat format = ImageFormat.Jpeg;
+            saveFileDialog1.FileName       = child.Text;
+            saveFileDialog1.Filter         = "jpg|*.jpg|jpeg|*.jpeg|bmp|*.bmp|gif|*.gif";
+            saveFileDialog1.Title          = "Save Image As";
+            ImageFormat format             = ImageFormat.Jpeg;
 
             // Check if current form is "new image"
             if (child.Text == "New Image")
@@ -282,6 +323,10 @@ namespace WinFormsApp
             }
         }
 
+        /// <summary>
+        /// Event handler for the "Save As" menu item. Prompts the user for a save location
+        /// and file name, then saves the currently active MDI child image to the chosen format.
+        /// </summary>
         private void SaveAsMenuItem_Click(object sender, EventArgs e)
         {
             ImageFormChild child = (ImageFormChild)this.ActiveMdiChild;
@@ -307,6 +352,10 @@ namespace WinFormsApp
             }
         }
 
+        /// <summary>
+        /// Event handler for the "Exit" menu item. If there are any open MDI child forms, prompts the user
+        /// with a dialog that allows saving before closing. Otherwise, closes the application immediately.
+        /// </summary>
         private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (this.MdiChildren.Length > 0)
@@ -320,6 +369,7 @@ namespace WinFormsApp
                 closeDialogForm.Dispose();
             }
             this.Close();
+            this.Dispose();
             Application.Exit();
         }
     }
