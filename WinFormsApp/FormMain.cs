@@ -173,6 +173,7 @@ namespace WinFormsApp
 
                 AddNewImageChildForm(webURLPath, FileSourceLocation.WEB);
             }
+            dlg.Dispose();
         }
 
         private void FileToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
@@ -308,13 +309,18 @@ namespace WinFormsApp
 
         private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (this.MdiChildren.Length > 0) {
-                // create a new child form - FormMainCloseDialog
-                MessageBox.Show("Save?"); //temp
+            if (this.MdiChildren.Length > 0)
+            {
+                FormMainCloseDialog closeDialogForm = new FormMainCloseDialog();
+
+                if (closeDialogForm.ShowDialog() == DialogResult.OK)
+                {
+                    SaveToolStripMenuItem_Click(sender, e);
+                }
+                closeDialogForm.Dispose();
             }
             this.Close();
             Application.Exit();
         }
     }
-
 }
