@@ -82,7 +82,7 @@ namespace WinFormsApp
             Image image;
             byte[] bytesArrOfImg;
 
-            // Make request and get response (the image) in bytes
+            // Make GET request and receive response (the image in bytes)
             bytesArrOfImg = await httpClient.GetByteArrayAsync(imageSrcURI);
 
             image = CreateImageFromByteArray(bytesArrOfImg);
@@ -123,10 +123,10 @@ namespace WinFormsApp
             // reload all events in the ImageForm child component
             // (will trigger the Paint event handler that draws the image to the child form)
             imageChildForm.Invalidate();
-            
+
             imageChildForm.Show();
         }
-        
+
         // Event handlers ===
 
         private void NewMenuItem_Clicked(object sender, EventArgs e)
@@ -148,7 +148,6 @@ namespace WinFormsApp
 
                 // display the new form 
                 newMDIChild.Show();
-                
             }
         }
 
@@ -178,7 +177,7 @@ namespace WinFormsApp
 
         private void FileToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
         {
-            if (this.HasChildren)
+            if (this.MdiChildren.Length > 0)
             {
                 saveToolStripMenuItem.Enabled = true;
                 saveAsToolStripMenuItem.Enabled = true;
@@ -254,7 +253,8 @@ namespace WinFormsApp
 
                 }
             }
-            else {
+            else
+            {
                 try
                 {
                     string extension = Path.GetExtension(saveFileDialog1.FileName);
@@ -299,6 +299,16 @@ namespace WinFormsApp
                     return;
                 }
             }
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (this.MdiChildren.Length > 0) {
+                // create a new child form - FormMainCloseDialog
+                MessageBox.Show("Save?"); //temp
+            }
+            this.Close();
+            Application.Exit();
         }
     }
 

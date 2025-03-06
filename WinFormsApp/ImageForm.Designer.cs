@@ -34,9 +34,10 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(266, 304);
+            ClientSize = new Size(266, 265);
             Name = "ImageForm";
             Text = "Image Form";
+            FormClosed += ImageForm_FormClosed;
             Paint += ImageForm_Paint;
             ResumeLayout(false);
         }

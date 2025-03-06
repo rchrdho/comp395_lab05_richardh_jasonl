@@ -43,5 +43,11 @@ namespace WinFormsApp
             e.Graphics.DrawImage(myImage, this.AutoScrollPosition.X,
                 this.AutoScrollPosition.Y, myImage.Width, myImage.Height);
         }
+
+        private void ImageForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            myImage.Dispose();
+            this.Dispose();
+        }
     }
 }

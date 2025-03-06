@@ -15,7 +15,7 @@ namespace WinFormsApp
         public FormDialogWeb()
         {
             InitializeComponent();
-            WebImageUrl = "https://www.w3schools.com/css/img_5terre.jpg";
+            WebImageUrl = "https://www.w3schools.com/css/img_5terre.jpg"; // Default url
         }
 
         public string WebImageUrl { get; set; }
