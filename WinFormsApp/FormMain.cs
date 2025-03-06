@@ -147,9 +147,8 @@ namespace WinFormsApp
         /// <exception cref="ArgumentNullException"></exception>
         private async void AddNewImageChildForm(string imageFilePath, FileSourceLocation fileSourceLocation)
         {
-            ImageFormChild imageChildForm = new ImageFormChild();
-            Image? image;
-            imageChildForm.MdiParent = this;
+            ImageFormChild imageChildForm;
+            Image? image = null;
 
             if (imageFilePath == null || String.IsNullOrWhiteSpace(imageFilePath))
             {
@@ -162,13 +161,20 @@ namespace WinFormsApp
             if (fileSourceLocation == FileSourceLocation.FILE_SYSTEM)
             {
                 image = await GetFileSystemImage(imageFilePath);
-                if (image != null) imageChildForm.Image = image;
             }
             else if (fileSourceLocation == FileSourceLocation.WEB)
             {
                 image = await GetWebImage(httpClient, imageFilePath);
-                if (image != null) imageChildForm.Image = image;
             }
+
+            if (image == null)
+            {
+                return;
+            }
+
+            imageChildForm = new ImageFormChild();
+            imageChildForm.MdiParent = this;
+            imageChildForm.Image = image;
 
             // reload all events in the ImageForm child component
             // (will trigger the Paint event handler that draws the image to the child form)
